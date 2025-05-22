@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Website Profil Interaktif</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: repeating-linear-gradient(
+        45deg,
+        #2a1052 0,
+        #2a1052 2px,
+        #3b1767 2px,
+        #3b1767 6px
+      );
+      background-size: 150% 150%;
+      animation: moveLines 10s linear infinite;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+      padding: 2rem;
+      color: #cbd5e1;
+      transition: background 0.5s ease, color 0.5s ease;
+    }
+
+    @keyframes moveLines {
+      0% {
+        background-position: 0 0;
+      }
+      100% {
+        background-position: 60px 60px;
+      }
+    }
+
+    h1 {
+      color: #a78bfa;
+      font-size: 2.5rem;
+      margin-bottom: 2rem;
+      text-shadow: 1px 1px 6px rgba(167,139,250,0.7);
+      z-index: 10;
+      transition: color 0.5s ease;
+      text-align: center;
+    }
+
+    .btn-group {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 2rem;
+      flex-wrap: wrap;
+      justify-content: center;
+      z-index: 10;
+    }
+
+    button {
+      background: #5b21b6;
+      border: none;
+      padding: 0.6rem 1.6rem;
+      border-radius: 9999px;
+      font-weight: 600;
+      color: #d8b4fe;
+      cursor: pointer;
+      box-shadow: 0 4px 8px rgba(124,58,237,0.5);
+      transition: background-color 0.3s, color 0.3s, transform 0.2s;
+      user-select: none;
+      position: relative;
+      z-index: 10;
+    }
+
+    button.active,
+    button:hover {
+      background: #a78bfa;
+      color: #2c1052;
+      box-shadow: 0 8px 20px rgba(167,139,250,0.9);
+      transform: scale(1.05);
+    }
+
+    .content-container {
+      background: rgba(30, 10, 50, 0.85);
+      border-radius: 1.5rem;
+      padding: 2rem;
+      width: 100%;
+      max-width: 480px;
+      box-shadow: 0 20px 30px rgba(167,139,250,0.4);
+      position: relative;
+      overflow: hidden;
+      min-height: 320px;
+      backdrop-filter: saturate(180%) blur(12px);
+      z-index: 10;
+      transition: background-color 0.5s ease, color 0.5s ease;
+      color: #ddd6fe;
+      text-align: center;
+    }
+
+    .fade-enter {
+      opacity: 0;
+      transform: translateY(30px);
+      position: absolute;
+      width: 100%;
+      left: 0;
+      top: 0;
+    }
+    .fade-enter-active {
+      opacity: 1;
+      transform: translateY(0);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+      position: relative;
+    }
+    .fade-exit {
+      opacity: 1;
+      transform: translateY(0);
+      position: relative;
+      width: 100%;
+    }
+    .fade-exit-active {
+      opacity: 0;
+      transform: translateY(-30px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+      position: absolute;
+      left: 0;
+      top: 0;
+    }
+
+    img.profile-pic {
+      display: block;
+      margin: 0 auto 1.5rem auto;
+      border-radius: 50%;
+      width: 160px;
+      height: 160px;
+      object-fit: cover;
+      box-shadow: 0 8px 25px rgba(167,139,250,0.7);
+      transition: box-shadow 0.5s ease;
+    }
+
+    .content-container h2 {
+      font-size: 2.2rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 0.6rem;
+      margin-bottom: 1.2rem;
+      color: #c4b5fd;
+      text-align: center;
+    }
+
+    .content-container h2 svg {
+      width: 30px;
+      height: 30px;
+      fill: #a78bfa;
+      flex-shrink: 0;
+    }
+
+    .content-container p, 
+    .content-container ul {
+      font-size: 1.2rem;
+      max-width: 400px;
+      margin: 0 auto 1rem auto;
+      color: #ddd6fe;
+    }
+
+    .content-container p {
+      text-align: center;
+    }
+
+    .content-container ul {
+      list-style: none;
+      padding-left: 0;
+    }
+
+    .content-container ul li {
+      margin: 0.5rem 0;
+      position: relative;
+      padding-left: 2rem;
+      text-align: left;
+      max-width: 360px;
+      margin-left: auto;
+      margin-right: auto;
+      border-radius: 8px;
+      background: rgba(167,139,250,0.1);
+      box-shadow: 0 0 8px rgba(167,139,250,0.15);
+    }
+
+    .content-container ul li::before {
+      content: "⭐";
+      position: absolute;
+      left: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 1.3rem;
+    }
+
+    .contact-links {
+      margin-top: 1rem;
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      align-items: center;
+    }
+
+    .contact-links a {
+      color: #a78bfa;
+      text-decoration: none;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      transition: color 0.3s;
+    }
+
+    .contact-links a:hover {
+      color: #c4b5fd;
+      text-decoration: underline;
+    }
+
+    .instagram-icon {
+      width: 20px;
+      height: 20px;
+      fill: currentColor;
+    }
+
+    @media (max-width: 520px) {
+      .content-container {
+        max-width: 90vw;
+        padding: 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <h1>Profil Febriyanto</h1>
+
+  <div class="btn-group">
+    <button class="active" data-section="profil">Profil</button>
+    <button data-section="pendidikan">Pendidikan</button>
+    <button data-section="hobi">Hobi</button>
+    <button data-section="kontak">Kontak</button>
+  </div>
+
+  <div class="content-container" id="content">
+  </div>
+
+  <script>
+    const sections = {
+      profil: `
+        <img src="public/profil_febri/tes.jpg" alt="Foto Profil Febriyanto" class="profile-pic" />
+        <h2>
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zM12 14c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+          </svg>
+          Febriyanto dwi hardytyo
+        </h2>
+      `,
+      pendidikan: `
+        <h2>
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M12 3L1 9l11 6 9-4.91V17h2V9L12 3z"/>
+          </svg>
+          Riwayat Pendidikan
+        </h2>
+        <ul>
+          <li>SD NEGERI TANGERANG '15</li>
+          <li>SMP NEGERI TANGERANG '22</li>
+          <li>BINTANG NUSANTARA SCHOOL</li>
+        </ul>
+      `,
+      hobi: `
+        <h2>
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41 1.01 4.5 2.09C13.09 4.01 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+          </svg>
+          Hobi Saya
+        </h2>
+        <p>🏀 BASKET DAN 🎥 SINEMATOGRAFI</p>
+      `,
+      kontak: `
+        <h2>
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M21 8V7l-3 2-2-2-4 5-5-5-3 3v7h16v-4l3-3z"/>
+          </svg>
+          Hubungi Saya
+        </h2>
+        <p>Email: febryanto2005@gmail.com</p>
+        <p>Telepon: 089695912236</p>
+        <div class="contact-links">
+          <a href="https://instagram.com/fdh.laurenn" target="_blank" rel="noreferrer">
+            <svg class="instagram-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" >
+              <path d="M7.75 2h8.5A5.75 5.75 0 0122 7.75v8.5A5.75 5.75 0 0116.25 22h-8.5A5.75 5.75 0 012 16.25v-8.5A5.75 5.75 0 017.75 2zm0 1.5A4.25 4.25 0 003.5 7.75v8.5A4.25 4.25 0 007.75 20.5h8.5a4.25 4.25 0 004.25-4.25v-8.5A4.25 4.25 0 0016.25 3.5h-8.5zM12 7a5 5 0 110 10 5 5 0 010-10zm0 1.5a3.5 3.5 0 100 7 3.5 3.5 0 000-7zm4.75-.88a1.12 1.12 0 110 2.25 1.12 1.12 0 010-2.25z"/>
+            </svg>
+            @fdh.laurenn
+          </a>
+        </div>
+      `,
+    };
+
+    const contentEl = document.getElementById('content');
+    const buttons = document.querySelectorAll('.btn-group button');
+    let currentSection = 'profil';
+
+    function switchSection(newSection) {
+      if(newSection === currentSection) return;
+
+      buttons.forEach(btn => btn.classList.remove('active'));
+      document.querySelector(`button[data-section="${newSection}"]`).classList.add('active');
+
+      const oldContent = contentEl.firstElementChild;
+      if (oldContent) {
+        oldContent.classList.add('fade-exit');
+        setTimeout(() => {
+          oldContent.classList.add('fade-exit-active');
+        }, 10);
+        setTimeout(() => {
+          contentEl.removeChild(oldContent);
+
+          const newDiv = document.createElement('div');
+          newDiv.innerHTML = sections[newSection];
+          newDiv.classList.add('fade-enter');
+          contentEl.appendChild(newDiv);
+
+          setTimeout(() => {
+            newDiv.classList.add('fade-enter-active');
+            newDiv.classList.remove('fade-enter');
+          }, 20);
+        }, 510);
+      } else {
+        // First load
+        const newDiv = document.createElement('div');
+        newDiv.innerHTML = sections[newSection];
+        newDiv.classList.add('fade-enter');
+        contentEl.appendChild(newDiv);
+        setTimeout(() => {
+          newDiv.classList.add('fade-enter-active');
+          newDiv.classList.remove('fade-enter');
+        }, 20);
+      }
+
+      currentSection = newSection;
+    }
+
+    buttons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        switchSection(btn.getAttribute('data-section'));
+      });
+    });
+
+    // Load default section
+    switchSection(currentSection);
+  </script>
+</body>
+</html>
